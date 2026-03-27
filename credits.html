@@ -1,0 +1,58 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Credit Management{% endblock %}
+{% block page_title %}Credit Management{% endblock %}
+{% block nav_links %}{% with page="credits" %}{% include "fpms_app/admin_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card amber"><div class="stat-icon">💳</div><div class="stat-info"><div class="stat-value" id="total-issued">—</div><div class="stat-label">Total Credit Issued</div></div></div>
+  <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-info"><div class="stat-value" id="total-outstanding">—</div><div class="stat-label">Outstanding Balance</div></div></div>
+  <div class="stat-card green"><div class="stat-icon">✅</div><div class="stat-info"><div class="stat-value" id="total-repaid">—</div><div class="stat-label">Total Repaid</div></div></div>
+</div>
+<div class="page-actions">
+  <input type="text" id="search-credits" class="search-input" placeholder="🔍 Search by farmer name…" oninput="loadCredits()">
+  <button class="btn-primary" onclick="openIssueModal()">+ Issue Credit</button>
+</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Farmer</th><th>Credit Type</th><th>Amount (KES)</th><th>Date Issued</th><th>Outstanding (KES)</th><th>Status</th></tr></thead>
+    <tbody id="credits-table"><tr><td colspan="6" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+
+<!-- Issue Credit Modal -->
+<div id="credit-modal" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <div class="modal-header"><h3>Issue Credit to Farmer</h3><button onclick="closeModal('credit-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><label>Select Farmer *</label>
+          <select id="c-farmer"><option value="">— Select Farmer —</option></select>
+        </div>
+        <div class="form-group"><label>Credit Type *</label>
+          <select id="c-type">
+            <option value="Seed">Seed</option>
+            <option value="Fertilizer">Fertilizer</option>
+            <option value="Machinery">Machinery</option>
+            <option value="Land Preparation">Land Preparation</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Amount (KES) *</label><input id="c-amount" type="number" placeholder="e.g. 5000"></div>
+        <div class="form-group"><label>Description</label><input id="c-desc" type="text" placeholder="Brief description"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal('credit-modal')">Cancel</button>
+      <button class="btn-primary" onclick="issueCredit()">Issue Credit</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/credits.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% extends "fpms_app/base.html" %}
+{% block sidebar_class %}farmer-sidebar{% endblock %}
+{% block avatar_class %}farmer-av{% endblock %}
+{% block nav_links %}{% with page=farmer_page %}{% include "fpms_app/farmer_nav.html" %}{% endwith %}{% endblock %}

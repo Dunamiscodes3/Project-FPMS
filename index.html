@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In – FPMS Mwea Rice Cooperative</title>
+  <link rel="stylesheet" href="{% static 'fpms_app/css/main.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="login-page">
+  <div class="login-bg"><div class="login-bg-pattern"></div></div>
+  <div class="login-container">
+    <div class="login-brand">
+      <div class="brand-icon">🌾</div>
+      <h1>FPMS</h1>
+      <p>Farm Produce Management System</p>
+      <span class="brand-sub">Mwea Rice Farmers Cooperative Society</span>
+    </div>
+    <div class="login-card">
+      <h2>Sign In</h2>
+      <p class="login-subtitle">Enter your credentials to access the platform</p>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="username" placeholder="Enter your username" autocomplete="off">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select id="role">
+          <option value="admin">Administrator</option>
+          <option value="farmer">Farmer</option>
+        </select>
+      </div>
+      <div id="login-error" class="error-msg" style="display:none"></div>
+      <button class="btn-primary" id="login-btn" onclick="doLogin()" style="width:100%">Sign In</button>
+      <div class="demo-creds">
+        <strong>Demo Credentials:</strong><br>
+        Admin: <code>admin / admin123</code>&nbsp;|&nbsp;Farmer: <code>farmer1 / farm123</code>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CSRF = '{{ csrf_token }}';
+
+    async function doLogin() {
+      const btn = document.getElementById('login-btn');
+      const errEl = document.getElementById('login-error');
+      errEl.style.display = 'none';
+      btn.textContent = 'Signing in…'; btn.disabled = true;
+
+      const body = {
+        username: document.getElementById('username').value.trim(),
+        password: document.getElementById('password').value.trim(),
+        role:     document.getElementById('role').value,
+      };
+      if (!body.username || !body.password) {
+        showErr('Please enter username and password.');
+        btn.textContent = 'Sign In'; btn.disabled = false; return;
+      }
+      try {
+        const res  = await fetch('/api/auth/login/', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json','X-CSRFToken': CSRF},
+          body: JSON.stringify(body),
+          credentials: 'include',
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.location.href = data.data.redirect;
+        } else {
+          showErr(data.error || 'Login failed.');
+          btn.textContent = 'Sign In'; btn.disabled = false;
+        }
+      } catch(e) {
+        showErr('Server error. Is Django running?');
+        btn.textContent = 'Sign In'; btn.disabled = false;
+      }
+    }
+
+    function showErr(msg) {
+      const el = document.getElementById('login-error');
+      el.textContent = msg; el.style.display = 'block';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+  </script>
+</body>
+</html>

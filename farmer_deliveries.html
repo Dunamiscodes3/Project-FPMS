@@ -1,0 +1,25 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}My Deliveries{% endblock %}
+{% block page_title %}My Deliveries{% endblock %}
+{% block sidebar_class %}farmer-sidebar{% endblock %}
+{% block avatar_class %}farmer-av{% endblock %}
+{% block nav_links %}{% with page="farmer-deliveries" %}{% include "fpms_app/farmer_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card blue"><div class="stat-icon">📦</div><div class="stat-info"><div class="stat-value" id="fd-total">—</div><div class="stat-label">Total Delivered (kg)</div></div></div>
+  <div class="stat-card amber"><div class="stat-icon">⚙️</div><div class="stat-info"><div class="stat-value" id="fd-pending">—</div><div class="stat-label">Pending Milling</div></div></div>
+  <div class="stat-card green"><div class="stat-icon">✅</div><div class="stat-info"><div class="stat-value" id="fd-done">—</div><div class="stat-label">Milling Completed</div></div></div>
+</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Date</th><th>Weight (kg)</th><th>Variety</th><th>Milling Status</th><th>Estimated Payout (KES)</th></tr></thead>
+    <tbody id="fd-table"><tr><td colspan="5" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/farmer_deliveries.js' %}"></script>
+{% endblock %}

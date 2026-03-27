@@ -1,0 +1,54 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Reports{% endblock %}
+{% block page_title %}Reports{% endblock %}
+{% block nav_links %}{% with page="reports" %}{% include "fpms_app/admin_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="report-grid">
+  <div class="report-card" onclick="generateReport('farmers')">
+    <div class="report-icon">👨‍🌾</div>
+    <div class="report-info"><h4>Farmer Registry</h4><p>All registered farmers and their details</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+  <div class="report-card" onclick="generateReport('credits')">
+    <div class="report-icon">💳</div>
+    <div class="report-info"><h4>Credit Distribution</h4><p>Credits issued, balances & repayments</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+  <div class="report-card" onclick="generateReport('stock')">
+    <div class="report-icon">📦</div>
+    <div class="report-info"><h4>Stock & Production</h4><p>Deliveries, milling status, stock levels</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+  <div class="report-card" onclick="generateReport('payments')">
+    <div class="report-icon">💰</div>
+    <div class="report-info"><h4>Payment Summary</h4><p>Payments processed and pending</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+  <div class="report-card" onclick="generateReport('machinery')">
+    <div class="report-icon">🚜</div>
+    <div class="report-info"><h4>Machinery Utilization</h4><p>Booking requests and approvals</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+  <div class="report-card" onclick="generateReport('agronomic')">
+    <div class="report-icon">🌱</div>
+    <div class="report-info"><h4>Agronomic Performance</h4><p>Seed distribution and soil health</p></div>
+    <button class="btn-report">Generate</button>
+  </div>
+</div>
+
+<div id="report-output" style="display:none">
+  <div class="section-title" id="report-title"></div>
+  <div class="report-meta" id="report-meta"></div>
+  <div class="table-card" id="report-table"></div>
+  <div class="page-actions" style="margin-top:16px">
+    <button class="btn-primary" onclick="window.print()">🖨️ Print Report</button>
+    <button class="btn-secondary" onclick="document.getElementById('report-output').style.display='none'">Close</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/reports.js' %}"></script>
+{% endblock %}

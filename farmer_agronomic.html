@@ -1,0 +1,53 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Agronomic Info{% endblock %}
+{% block page_title %}Agronomic Information{% endblock %}
+{% block sidebar_class %}farmer-sidebar{% endblock %}
+{% block avatar_class %}farmer-av{% endblock %}
+{% block nav_links %}{% with page="farmer-agronomic" %}{% include "fpms_app/farmer_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="section-title">🌾 My Seed Distributions</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Variety</th><th>Quantity (kg)</th><th>Date</th><th>Supplier Quality</th></tr></thead>
+    <tbody id="fa-seeds"><tr><td colspan="4" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+
+<div class="section-title">🧪 My Soil Health Records</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Date</th><th>pH Level</th><th>Moisture</th><th>Fertilizer Recommendation</th><th>Water Status</th></tr></thead>
+    <tbody id="fa-soil"><tr><td colspan="5" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+
+<div class="section-title">💡 Agronomic Tips</div>
+<div class="tips-grid">
+  <div class="tip-card">
+    <div class="tip-icon">💧</div>
+    <h4>Water Management</h4>
+    <p>Maintain 5cm water depth during tillering. Drain fields 2 weeks before harvest for easier mechanization.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🌱</div>
+    <h4>Seed Selection</h4>
+    <p>Use certified seeds from the cooperative. Basmati varieties perform best in Mwea irrigation conditions.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🧪</div>
+    <h4>Soil Health</h4>
+    <p>Target soil pH of 6.0–7.0 for optimal rice production. Apply lime if your pH falls below 5.5.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🚜</div>
+    <h4>Machinery Timing</h4>
+    <p>Book machinery at least 2 weeks before peak harvest to avoid scheduling delays and bottlenecks.</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/farmer_agronomic.js' %}"></script>
+{% endblock %}

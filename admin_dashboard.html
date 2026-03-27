@@ -1,0 +1,56 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block nav_links %}{% with page="admin-dashboard" %}{% include "fpms_app/admin_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card green">
+    <div class="stat-icon">👨‍🌾</div>
+    <div class="stat-info"><div class="stat-value" id="stat-farmers">—</div><div class="stat-label">Registered Farmers</div></div>
+  </div>
+  <div class="stat-card amber">
+    <div class="stat-icon">💳</div>
+    <div class="stat-info"><div class="stat-value" id="stat-credit">—</div><div class="stat-label">Total Credit Issued</div></div>
+  </div>
+  <div class="stat-card blue">
+    <div class="stat-icon">📦</div>
+    <div class="stat-info"><div class="stat-value" id="stat-stock">—</div><div class="stat-label">Total Stock (kg)</div></div>
+  </div>
+  <div class="stat-card teal">
+    <div class="stat-icon">💰</div>
+    <div class="stat-info"><div class="stat-value" id="stat-payments">—</div><div class="stat-label">Payments Processed</div></div>
+  </div>
+</div>
+
+<div class="section-title">Quick Actions</div>
+<div class="quick-actions">
+  <a href="/pages/farmers/"   class="qa-card"><span class="qa-icon">➕</span><span>Register Farmer</span></a>
+  <a href="/pages/credits/"   class="qa-card"><span class="qa-icon">💳</span><span>Issue Credit</span></a>
+  <a href="/pages/stock/"     class="qa-card"><span class="qa-icon">📦</span><span>Record Delivery</span></a>
+  <a href="/pages/machinery/" class="qa-card"><span class="qa-icon">🚜</span><span>Approve Bookings</span></a>
+  <a href="/pages/payments/"  class="qa-card"><span class="qa-icon">💸</span><span>Process Payment</span></a>
+  <a href="/pages/reports/"   class="qa-card"><span class="qa-icon">📋</span><span>View Reports</span></a>
+</div>
+
+<div class="section-title">Recent Deliveries</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Farmer</th><th>Date</th><th>Weight (kg)</th><th>Milling Status</th></tr></thead>
+    <tbody id="recent-deliveries"><tr><td colspan="4" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+
+<div class="section-title">Pending Machinery Bookings</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Farmer</th><th>Machinery</th><th>Requested Date</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody id="pending-bookings"><tr><td colspan="5" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/dashboard.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Book Machinery{% endblock %}
+{% block page_title %}Book Machinery{% endblock %}
+{% block sidebar_class %}farmer-sidebar{% endblock %}
+{% block avatar_class %}farmer-av{% endblock %}
+{% block nav_links %}{% with page="farmer-booking" %}{% include "fpms_app/farmer_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+  <h3>Request Machinery Booking</h3>
+  <p style="color:var(--text-muted);margin-bottom:20px">Submit a request for agricultural machinery. The cooperative will review and confirm your booking.</p>
+  <div class="form-row">
+    <div class="form-group"><label>Machinery Type *</label>
+      <select id="b-type">
+        <option value="Tractor">Tractor</option>
+        <option value="Harvester">Harvester</option>
+        <option value="Transplanter">Transplanter</option>
+        <option value="Thresher">Thresher</option>
+        <option value="Ploughing Machine">Ploughing Machine</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Requested Date *</label><input id="b-date" type="date"></div>
+  </div>
+  <div class="form-group"><label>Field / Plot Number</label><input id="b-plot" type="text" placeholder="Your plot or field number"></div>
+  <div class="form-group"><label>Additional Notes</label><textarea id="b-notes" rows="3" placeholder="Any special instructions…"></textarea></div>
+  <button class="btn-primary" onclick="submitBooking()">Submit Booking Request</button>
+</div>
+
+<div class="section-title">My Booking History</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Machinery</th><th>Requested Date</th><th>Plot</th><th>Status</th><th>Submitted On</th></tr></thead>
+    <tbody id="my-bookings"><tr><td colspan="5" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/farmer_booking.js' %}"></script>
+{% endblock %}

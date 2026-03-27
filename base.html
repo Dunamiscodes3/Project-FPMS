@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FPMS{% endblock %} – Mwea Rice Cooperative</title>
+  <link rel="stylesheet" href="{% static 'fpms_app/css/main.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="app-page">
+
+  <!-- SIDEBAR -->
+  <div id="sidebar" class="sidebar {% block sidebar_class %}{% endblock %}">
+    <div class="sidebar-brand">
+      <span class="brand-icon-sm">🌾</span>
+      <span>FPMS</span>
+    </div>
+    <nav class="sidebar-nav">
+      {% block nav_links %}{% endblock %}
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-badge">
+        <div class="user-avatar {% block avatar_class %}{% endblock %}">
+          {{ user.full_name|first|upper }}
+        </div>
+        <div>
+          <div class="user-name">{{ user.full_name }}</div>
+          <div class="user-role">{{ user.get_role_display }}</div>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+    <div class="topbar">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <h2 class="page-title">{% block page_title %}{% endblock %}</h2>
+      <div class="topbar-date" id="topbar-date"></div>
+    </div>
+    <div class="content-area">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+
+  <div id="toast" class="toast" style="display:none"></div>
+
+  <script src="{% static 'fpms_app/js/utils.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+  <script>
+    // Set date in topbar
+    document.getElementById('topbar-date').textContent =
+      new Date().toLocaleDateString('en-KE',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  </script>
+</body>
+</html>

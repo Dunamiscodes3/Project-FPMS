@@ -1,0 +1,31 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}Machinery Bookings{% endblock %}
+{% block page_title %}Machinery Bookings{% endblock %}
+{% block nav_links %}{% with page="machinery" %}{% include "fpms_app/admin_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card amber"><div class="stat-icon">⏳</div><div class="stat-info"><div class="stat-value" id="count-pending">—</div><div class="stat-label">Pending Requests</div></div></div>
+  <div class="stat-card green"><div class="stat-icon">✅</div><div class="stat-info"><div class="stat-value" id="count-approved">—</div><div class="stat-label">Approved</div></div></div>
+  <div class="stat-card red"><div class="stat-icon">❌</div><div class="stat-info"><div class="stat-value" id="count-rejected">—</div><div class="stat-label">Rejected</div></div></div>
+</div>
+<div class="page-actions">
+  <div class="filter-tabs">
+    <button class="filter-tab active" onclick="filterBookings('all',this)">All</button>
+    <button class="filter-tab" onclick="filterBookings('Pending',this)">Pending</button>
+    <button class="filter-tab" onclick="filterBookings('Approved',this)">Approved</button>
+    <button class="filter-tab" onclick="filterBookings('Rejected',this)">Rejected</button>
+  </div>
+</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Farmer</th><th>Machinery</th><th>Requested Date</th><th>Plot</th><th>Notes</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="bookings-table"><tr><td colspan="7" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/machinery.js' %}"></script>
+{% endblock %}

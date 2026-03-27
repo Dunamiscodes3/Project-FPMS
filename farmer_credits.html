@@ -1,0 +1,28 @@
+{% extends "fpms_app/base.html" %}
+{% load static %}
+{% block title %}My Credits{% endblock %}
+{% block page_title %}My Credits{% endblock %}
+{% block sidebar_class %}farmer-sidebar{% endblock %}
+{% block avatar_class %}farmer-av{% endblock %}
+{% block nav_links %}{% with page="farmer-credits" %}{% include "fpms_app/farmer_nav.html" %}{% endwith %}{% endblock %}
+
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card amber"><div class="stat-icon">💳</div><div class="stat-info"><div class="stat-value" id="fc-total">—</div><div class="stat-label">Total Credit Issued</div></div></div>
+  <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-info"><div class="stat-value" id="fc-outstanding">—</div><div class="stat-label">Outstanding Balance</div></div></div>
+  <div class="stat-card green"><div class="stat-icon">✅</div><div class="stat-info"><div class="stat-value" id="fc-repaid">—</div><div class="stat-label">Repaid</div></div></div>
+</div>
+<div class="info-box">
+  <strong>ℹ️ How Credit Works:</strong> Credit issued by the cooperative is automatically deducted from your produce sale payout. All sales are processed through the cooperative system, ensuring transparent repayment tracking.
+</div>
+<div class="table-card">
+  <table class="data-table">
+    <thead><tr><th>Credit Type</th><th>Amount (KES)</th><th>Date Issued</th><th>Outstanding (KES)</th><th>Status</th></tr></thead>
+    <tbody id="fc-table"><tr><td colspan="5" class="loading-cell">Loading…</td></tr></tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'fpms_app/js/farmer_credits.js' %}"></script>
+{% endblock %}
